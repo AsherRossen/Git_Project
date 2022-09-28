@@ -60,7 +60,7 @@ public class Commit {
 	
 	public void writeFile()
 	{
-		String toWrite = "./objects/"+trunk.getName() + "\n";
+		String toWrite = trunk.getName() + "\n";
 		if(previous != null)
 			toWrite += "./objects/" + previous.commitSHA1();
 		toWrite += "\n";
@@ -81,7 +81,7 @@ public class Commit {
 	
 	public String commitSHA1()
 	{
-		String info = "./objects/"+trunk.getName() + "\n";
+		String info = trunk.getName() + "\n";
 		if(previous != null)
 		{
 			info += previous + "\n";
