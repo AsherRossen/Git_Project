@@ -32,6 +32,10 @@ public class Tree {
 		fw.close();
 	}
 	
+	public String getName () {
+		return "./objects/"+hashedContents;
+	}
+	
 	public String genHash (String input) {
 		try {
 	           
