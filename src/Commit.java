@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -7,11 +11,12 @@ import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Formatter;
+
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Commit {
 	
-	public String pTree = null;
 	public String summary;
 	public String author;
 	public String date;
@@ -19,14 +24,30 @@ public class Commit {
 	Commit previous;
 	Commit next;
 	
-	public Commit(String pTreeValue, String summaryValue, String authorName, Commit parent)
+	public Commit(String summaryValue, String authorName, Commit parent)
 	{
-		pTree = pTreeValue;
 		summary = summaryValue;
 		author = authorName;
 		date = getDate();
 		previous = parent;
 		next = null;
+	}
+	
+	public ArrayList<String> createArrayListForTree() throws IOException {
+		ArrayList <String> arr = new ArrayList<String>();
+		File f =  new File ("index");
+		BufferedReader reader = new BufferedReader(new FileReader(f));
+		while (reader.ready()) {
+			String s = reader.readLine();
+			int i = s.indexOf(" :");
+			String fileName = s.substring(0,i);
+			String sha = s.substring(i+3);
+			s="blob : "+sha+" "+fileName;
+			arr.add(s);
+		}
+		reader.close();
+		
+		return arr;
 	}
 	
 	public String getDate()
@@ -37,7 +58,8 @@ public class Commit {
 	
 	public void writeFile()
 	{
-		String toWrite = pTree + "\n";
+		String toWrite = "\n";
+//		String toWrite = pTree + "\n";
 		if(previous != null)
 			toWrite += "./objects/" + previous.commitSHA1();
 		toWrite += "\n";
@@ -58,7 +80,8 @@ public class Commit {
 	
 	public String commitSHA1()
 	{
-		String info = pTree + "\n";
+		String info = "\n";
+//		String info = pTree + "\n";
 		if(previous != null)
 		{
 			info += previous + "\n";
