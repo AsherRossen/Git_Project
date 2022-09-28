@@ -35,6 +35,10 @@ public class Commit {
 		trunk = new Tree (createArrayListForTree());
 	}
 	
+	public Tree getTree() {
+		return trunk;
+	}
+	
 	public ArrayList<String> createArrayListForTree() throws IOException {
 		ArrayList <String> arr = new ArrayList<String>();
 		File f =  new File ("index");
