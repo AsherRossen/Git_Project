@@ -20,17 +20,19 @@ public class Commit {
 	public String summary;
 	public String author;
 	public String date;
+	private Tree trunk;
 	
 	Commit previous;
 	Commit next;
 	
-	public Commit(String summaryValue, String authorName, Commit parent)
+	public Commit(String summaryValue, String authorName, Commit parent) throws IOException
 	{
 		summary = summaryValue;
 		author = authorName;
 		date = getDate();
 		previous = parent;
 		next = null;
+		trunk = new Tree (createArrayListForTree());
 	}
 	
 	public ArrayList<String> createArrayListForTree() throws IOException {
@@ -58,8 +60,7 @@ public class Commit {
 	
 	public void writeFile()
 	{
-		String toWrite = "\n";
-//		String toWrite = pTree + "\n";
+		String toWrite = "./objects/"+trunk.getName() + "\n";
 		if(previous != null)
 			toWrite += "./objects/" + previous.commitSHA1();
 		toWrite += "\n";
@@ -80,8 +81,7 @@ public class Commit {
 	
 	public String commitSHA1()
 	{
-		String info = "\n";
-//		String info = pTree + "\n";
+		String info = "./objects/"+trunk.getName() + "\n";
 		if(previous != null)
 		{
 			info += previous + "\n";
