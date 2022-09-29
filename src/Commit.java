@@ -54,6 +54,7 @@ public class Commit {
 		reader.close();
 		if (previous!=null) {
 			String s = "tree : "+previous.getTree().getName();
+			arr.add(s);
 		}
 		
 		return arr;

@@ -33,7 +33,7 @@ public class Tree {
 	}
 	
 	public String getName () {
-		return "./objects/"+hashedContents;
+		return hashedContents;
 	}
 	
 	public String genHash (String input) {

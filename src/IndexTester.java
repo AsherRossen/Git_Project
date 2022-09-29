@@ -12,7 +12,7 @@ public class IndexTester {
 		index.add("textfile2.txt");
 		index.add("textfile3.txt");
 		
-		index.remove("textfile3.txt");
+		//index.remove("textfile3.txt");
 	}
 
 }
