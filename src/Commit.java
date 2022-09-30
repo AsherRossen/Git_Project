@@ -35,6 +35,7 @@ public class Commit {
 		previous = parent;
 		next = null;
 		trunk = new Tree (createArrayListForTree());
+		
 		head = new File ("HEAD");
 		head.delete();
 		head.createNewFile();
