@@ -14,11 +14,10 @@ public class CommitTester {
 		i.add("textfile.txt");
 		i.add("textfile2.txt");
 		Commit c = new Commit("Commit1","1st A", null);
-		System.out.println(c.createArrayListForTree());
 		System.out.println(c.getTree().getName());
 		i.add("textfile3.txt");
 		Commit commy = new Commit ("Commit2", "2nd A", c);
-		System.out.println(commy.createArrayListForTree());
+		commy.writeFile();
 		System.out.println(commy.getTree().getName());
 //		System.out.println(c.commitSHA1());
 //		c.writeFile();

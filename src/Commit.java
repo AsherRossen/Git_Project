@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -21,6 +22,7 @@ public class Commit {
 	public String author;
 	public String date;
 	private Tree trunk;
+	private File head;
 	
 	Commit previous;
 	Commit next;
@@ -33,6 +35,12 @@ public class Commit {
 		previous = parent;
 		next = null;
 		trunk = new Tree (createArrayListForTree());
+		head = new File ("HEAD");
+		head.delete();
+		head.createNewFile();
+		PrintWriter pw = new PrintWriter ("HEAD");
+		pw.print(this.commitSHA1());
+		pw.close();
 	}
 	
 	public Tree getTree() {
@@ -56,6 +64,8 @@ public class Commit {
 			String s = "tree : "+previous.getTree().getName();
 			arr.add(s);
 		}
+		f.delete();
+		f.createNewFile();
 		
 		return arr;
 	}
@@ -68,7 +78,7 @@ public class Commit {
 	
 	public void writeFile()
 	{
-		String toWrite = trunk.getName() + "\n";
+		String toWrite = "./objects/"+trunk.getName() + "\n";
 		if(previous != null)
 			toWrite += "./objects/" + previous.commitSHA1();
 		toWrite += "\n";
