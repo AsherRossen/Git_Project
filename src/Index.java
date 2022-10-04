@@ -62,7 +62,22 @@ public class Index {
 			out.write(key + " : " + blobMap.get(key) + "\n");
 		}
 		out.close();
-
+	}
+	
+	public void delete (String fn) throws IOException {
+		BufferedReader br = new BufferedReader (new FileReader ("index"));
+		String s = "";
+		while (br.ready()) {
+			String temp = br.readLine();
+			if (temp.contains(fn)) {
+				s+="*deleted*";
+			}
+			s+=temp+"/n";
+		}
+		
+		PrintWriter pw = new PrintWriter ("index");
+		pw.print(s);
+		pw.close();
 	}
 
 }

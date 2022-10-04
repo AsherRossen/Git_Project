@@ -23,6 +23,7 @@ public class Commit {
 	public String date;
 	private Tree trunk;
 	private File head;
+	private Index ind;
 	
 	Commit previous;
 	Commit next;
@@ -35,6 +36,7 @@ public class Commit {
 		previous = parent;
 		next = null;
 		trunk = new Tree (createArrayListForTree());
+		ind = new Index();
 		
 		head = new File ("HEAD");
 		head.delete();
@@ -42,6 +44,13 @@ public class Commit {
 		PrintWriter pw = new PrintWriter ("HEAD");
 		pw.print(this.commitSHA1());
 		pw.close();
+	}
+	
+	public void delete (String fn) throws IOException {
+		ind.delete(fn);
+		File f = new File ("index");
+		f.delete();
+		f.createNewFile();
 	}
 	
 	public Tree getTree() {
