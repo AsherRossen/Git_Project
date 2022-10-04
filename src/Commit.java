@@ -23,7 +23,6 @@ public class Commit {
 	public String date;
 	private Tree trunk;
 	private File head;
-	private Index ind;
 	
 	Commit previous;
 	Commit next;
@@ -36,7 +35,6 @@ public class Commit {
 		previous = parent;
 		next = null;
 		trunk = new Tree (createArrayListForTree());
-		ind = new Index();
 		
 		head = new File ("HEAD");
 		head.delete();
@@ -46,7 +44,7 @@ public class Commit {
 		pw.close();
 	}
 	
-	public void delete (String fn) throws IOException {
+	public void delete (Index ind, String fn) throws IOException {
 		ind.delete(fn);
 		File f = new File ("index");
 		f.delete();

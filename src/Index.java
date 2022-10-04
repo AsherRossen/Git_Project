@@ -65,19 +65,15 @@ public class Index {
 	}
 	
 	public void delete (String fn) throws IOException {
-		BufferedReader br = new BufferedReader (new FileReader ("index"));
-		String s = "";
-		while (br.ready()) {
-			String temp = br.readLine();
-			if (temp.contains(fn)) {
-				s+="*deleted*";
+		PrintWriter out = new PrintWriter(new FileWriter("index"));
+		for(String key : blobMap.keySet())
+		{
+			if (key.contains(fn)) {
+				out.write("*deleted* ");
 			}
-			s+=temp+"/n";
+			out.write(key + " : " + blobMap.get(key) + "\n");
 		}
-		
-		PrintWriter pw = new PrintWriter ("index");
-		pw.print(s);
-		pw.close();
+		out.close();
 	}
 
 }
